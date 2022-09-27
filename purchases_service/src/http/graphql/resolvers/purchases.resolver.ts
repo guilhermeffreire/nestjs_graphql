@@ -7,9 +7,12 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
+import { CustomersService } from '../../../services/customers/customers.service';
 import { ProductsService } from '../../../services/products/products.service';
 import { PurchasesService } from '../../../services/purchases/purchases.service';
 import { AuthorizationGuard } from '../../auth/authorization.guard';
+import { AuthUser, CurrentUser } from '../../auth/current-user';
+import { CreatePurchaseInput } from '../inputs/purchases/create-purchase-input';
 import { Product } from '../models/product';
 import { Purchase } from '../models/purchase';
 
@@ -18,6 +21,7 @@ export class PurchasesResolver {
   constructor(
     private purchasesService: PurchasesService,
     private productsService: ProductsService,
+    private customersService: CustomersService,
   ) {}
 
   @Query(() => [Purchase])
@@ -29,5 +33,27 @@ export class PurchasesResolver {
   @ResolveField(() => Product)
   product(@Parent() purchase: Purchase) {
     return this.productsService.getProductById(purchase.productId);
+  }
+
+  @Mutation(() => Purchase)
+  @UseGuards(AuthorizationGuard)
+  async createPurchase(
+    @Args('data') data: CreatePurchaseInput,
+    @CurrentUser() user: AuthUser,
+  ) {
+    console.log(user.sub);
+
+    const customer = await this.customersService.getCustomerByAuthUserId(
+      user.sub,
+    );
+
+    if (!customer) {
+      throw new Error('Customer not found.');
+    }
+
+    return this.purchasesService.createPurchase({
+      productId: data.productId,
+      customerId: customer.id,
+    });
   }
 }
