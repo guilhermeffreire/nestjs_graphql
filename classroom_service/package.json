@@ -24,6 +24,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@prisma/client": "^4.2.1",
     "apollo-server-express": "^3.10.1",
+    "chalk": "^5.1.0",
     "express-jwt": "^6.1.1",
     "graphql": "^16.6.0",
     "jwks-rsa": "^2.1.4",
