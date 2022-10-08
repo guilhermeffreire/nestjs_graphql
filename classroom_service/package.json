@@ -24,13 +24,14 @@
     "@nestjs/platform-express": "^9.0.0",
     "@prisma/client": "^4.2.1",
     "apollo-server-express": "^3.10.1",
-    "chalk": "^5.1.0",
+    "chalk": "^4.1.1",
     "express-jwt": "^6.1.1",
     "graphql": "^16.6.0",
     "jwks-rsa": "^2.1.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "slugify": "^1.6.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

@@ -7,7 +7,9 @@ export class Enrollment {
   @Field(() => ID)
   id: string;
 
-  studentId: Student;
+  @Field(() => Student)
+  student: Student;
+  studentId: string;
 
   @Field(() => Date, { nullable: true })
   canceledAt: Date;
