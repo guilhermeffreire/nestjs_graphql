@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import chalk from 'chalk';
-import figlet from 'figlet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,18 +16,13 @@ async function bootstrap() {
     },
   });
 
-  await app.listen(4003, () =>
-    console.log(
-      chalk.blueBright(
-        figlet.textSync('CLASSROOM \n \n 4003', {
-          horizontalLayout: 'default',
-          verticalLayout: 'default',
-          width: 100,
-          whitespaceBreak: true,
-        }),
-      ),
-    ),
-  );
+  app.startAllMicroservices().then(() => {
+    console.log(chalk.blue.bold('[ Classroom ] Microservice is running'));
+  });
+
+  app.listen(4003).then(() => {
+    console.log(chalk.blue.bold('[ Classroom ] Server running in port 4003'));
+  });
 }
 
 bootstrap();
