@@ -1,4 +1,4 @@
-# Projeto backend em GraphQL com Federation e Microsserviço 
+# Projeto backend em GraphQL com Federation e Microsserviços
 
 ## ✨ Tecnologias
 
